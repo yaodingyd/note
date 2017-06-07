@@ -2,6 +2,7 @@
   <div>
     <input v-model.trim="item" @keyup.enter="addItem">
     <button @click="addItem">Add note</button>
+    <button @click="signout">Sign Out</button>
     <hr>
     <ul>
       <li v-for="item in notes">
@@ -13,10 +14,10 @@
 </template>
 
 <script>
-import db from '@/db'
+import { db, auth } from '@/db'
 
 export default {
-  name: 'hello',
+  name: 'note',
   data () {
     return {
       item: ''
@@ -47,6 +48,9 @@ export default {
     },
     makeInputUneditable (element) {
       element.className = 'uneditable'
+    },
+    signout () {
+      auth.signOut()
     }
   }
 }

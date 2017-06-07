@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Note from '@/components/Note'
+import Auth from '@/components/Auth'
 
 Vue.use(Router)
 
@@ -9,13 +10,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      component: Note
     },
     {
-      path: '/hello',
-      name: 'why',
-      component: Hello
+      path: '/note',
+      component: Note
+    },
+    {
+      path: '/auth',
+      component: Auth
     }
   ]
 })
