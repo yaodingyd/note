@@ -28,7 +28,7 @@ new Vue({
       } else {
         // User is signed out.
         // ...
-        this.$router.push('/auth')
+        this.$router.push('/')
       }
     })
   }

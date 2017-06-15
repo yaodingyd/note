@@ -10,6 +10,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style lang="sass" src="bulma"></style>

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { db, auth } from '@/db'
+import { db, auth } from '@/firebase'
 
 export default {
   name: 'note',
