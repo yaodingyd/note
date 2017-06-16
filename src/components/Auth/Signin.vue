@@ -8,8 +8,11 @@
           </h1>
           <button class="button is-danger block" @click="googleSignin">Google Sign In</button>
           <button class="button is-warning block" @click="emailSignin">Email Sign In</button>
-          <router-link to="/signup">Sign Up</router-link>
         </div>
+      </div>
+
+      <div class="has-text-centered">
+        <router-link to="/auth/signup">Want to use an Email account? Sign Up</router-link>
       </div>
     </div>
   </section>
@@ -32,7 +35,7 @@ export default {
       })
     },
     emailSignin () {
-      this.$router.push('/signin')
+      this.$router.push('/auth/signin')
     }
   }
 }

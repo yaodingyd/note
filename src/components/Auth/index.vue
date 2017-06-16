@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="flex-container">
     <div class="container">
       <nav class="nav">
         <div class="nav-left">
-          <a class="nav-item is-brand" href="http://bulma.io">
-            <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox">
-          </a>
+          <span class="nav-item is-brand">
+            <router-link to="/">
+              NoTe
+            </router-link>
+          </span>
         </div>
 
         <div class="nav-center">
@@ -40,9 +42,11 @@
       </nav>
     </div>
 
-    <transition name="component" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <div class="component-container">
+      <transition name="component" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
 
     <footer class="footer">
       <div class="container">
@@ -63,6 +67,8 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
 .component-enter-active, .component-leave-active {
   transition: all 0.3s ease;
 }
@@ -75,9 +81,18 @@
   transform: translateX(-200px);
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.component-container {
+  flex: 1 0 auto;
+}
+
+.is-brand {
+  font-family: 'Indie Flower', cursive;
+  font-size: 2rem;
 }
 </style>

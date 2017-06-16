@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import Welcome from '@/components/Welcome'
 import Note from '@/components/Note'
+import Profile from '@/components/Profile'
+
 import Auth from '@/components/Auth/index'
 import Signin from '@/components/Auth/Signin'
 import EmailSignin from '@/components/Auth/EmailSignin'
 import Signup from '@/components/Auth/Signup'
+
+import { auth } from '@/firebase'
 
 Vue.use(Router)
 
@@ -12,23 +18,37 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/note',
-      component: Note
+      path: '/',
+      component: Welcome
     },
     {
-      path: '/',
+      path: '/note',
+      component: Note,
+      beforeEnter: (to, from, next) => {
+        if (auth.currentUser === null) {
+          next(false)
+        }
+        next()
+      }
+    },
+    {
+      path: '/profile',
+      component: Profile
+    },
+    {
+      path: '/auth',
       component: Auth,
       children: [
         {
-          path: '/',
+          path: '',
           component: Signin
         },
         {
-          path: '/signup',
+          path: 'signup',
           component: Signup
         },
         {
-          path: '/signin',
+          path: 'signin',
           component: EmailSignin
         }
       ]

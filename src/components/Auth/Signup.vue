@@ -10,33 +10,43 @@
           <div class="field">
             <label class="label">Email</label>
             <p class="control has-icons-left has-icons-right">
-              <input class="input" type="text" placeholder="example@gmail.com" v-model="email">
+              <input class="input" type="text" placeholder="example@gmail.com" v-model="email" v-validate="'required|email'" name="email">
               <span class="icon is-small is-left"><i class="fa fa-envelope"></i></span>
-              <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
+              <span v-show="errors.has('email')" class="icon is-small is-right"><i class="fa fa-warning error-input"></i></span>
             </p>
+            <p v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</p>
           </div>
 
           <div class="field">
             <label class="label">Password</label>
             <p class="control has-icons-left has-icons-right">
-              <input class="input" type="password" v-model="password">
+              <input class="input" type="password" v-model="password" v-validate="'min:6'" name="password">
               <span class="icon is-small is-left"><i class="fa fa-key"></i></span>
-              <span class="icon is-small is-right"><i class="fa fa-warning"></i></span>
+              <span v-show="errors.has('password')" class="icon is-small is-right"><i class="fa fa-warning error-input"></i></span>
             </p>
+            <p v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</p>
           </div>
 
-
-
-
-
-          <div class="field is-grouped">
-            <p class="control">
-              <button class="button is-info is-inverted" @click="signUp">Submit</button>
+          <div class="field">
+            <label class="label">Password Confirm</label>
+            <p class="control has-icons-left has-icons-right">
+              <input class="input" type="password" v-validate="'confirmed:password'" v-model="passwordConfirm" name="password_confirm">
+              <span class="icon is-small is-left"><i class="fa fa-legal"></i></span>
+              <span v-show="errors.has('password_confirm')" class="icon is-small is-right"><i class="fa fa-warning error-input"></i></span>
             </p>
+            <p v-show="errors.has('password_confirm')" class="help is-danger">{{ errors.first('password_confirm') }}</p>
           </div>
 
+          <div class="field submit">
+              <button class="button is-danger is-fullwidth" @click="signUp" :disabled="disabled">Submit</button>
+              <p v-show="firebaseError" class="help is-danger">{{ firebaseError }}</p>
+          </div>
 
         </div>
+      </div>
+
+      <div class="has-text-centered">
+        <router-link to="/auth">Already has an account? Sign in.</router-link>
       </div>
     </div>
   </section>
@@ -44,21 +54,42 @@
 
 <script>
 import { auth } from '@/firebase'
-// import router from 'vue-router'
+import { Validator } from 'vee-validate'
+
+const dictionary = {
+  en: {
+    messages: {
+      confirmed: () => 'Password does not match the confirm password.'
+    }
+  }
+}
+
+Validator.updateDictionary(dictionary)
 
 export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      passwordConfirm: '',
+      firebaseError: ''
+    }
+  },
+  computed: {
+    pristine () {
+      const fields = this.fields
+      return Object.keys(fields).some((key) => {
+        return fields[key].pristine
+      })
+    },
+    disabled () {
+      return this.errors.any() || this.pristine
     }
   },
   methods: {
     signUp () {
-      auth.createUserWithEmailAndPassword(this.email, this.password).catch(function (error) {
-        var errorCode = error.code
-        var errorMessage = error.message
-        console.log(errorCode + errorMessage)
+      auth.createUserWithEmailAndPassword(this.email, this.password).catch(error => {
+        this.firebaseError = error.message
       })
     }
   }
@@ -66,15 +97,11 @@ export default {
 </script>
 
 <style scoped>
-  button {
-    display: block;
-    margin: 0 auto;
-    width: 10rem;
+  .submit {
+    margin-top: 2rem;
   }
 
-  footer {
-    position: fixed;
-    bottom: 0;
+  .error-input{
+    color: crimson;
   }
 </style>
-

@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueFire from 'vuefire'
 import App from './App'
 import router from './router'
-import firebase from 'firebase'
+import { auth } from '@/firebase'
+import VeeValidate from 'vee-validate'
 
 Vue.use(VueFire)
+Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -13,22 +15,11 @@ new Vue({
   router,
   render: h => h(App),
   created () {
-    firebase.auth().onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
       if (user) {
-        // var displayName = user.displayName
-        // var email = user.email
-        // var emailVerified = user.emailVerified
-        // var photoURL = user.photoURL
-        // var isAnonymous = user.isAnonymous
-        // var uid = user.uid
-        // var providerData = user.providerData
-        console.log(user)
-        this.$router.push('/')
-        // ...
+        this.$router.push('/note')
       } else {
-        // User is signed out.
-        // ...
-        this.$router.push('/')
+        this.$router.push('/auth')
       }
     })
   }
