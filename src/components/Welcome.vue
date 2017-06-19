@@ -4,23 +4,7 @@
       <header class="nav">
         <div class="container">
           <div class="nav-left">
-            <a class="nav-item">Note</a>
-          </div>
-          <span class="nav-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-          <div class="nav-right nav-menu">
-            <a class="nav-item is-active">
-              Home
-            </a>
-            <a class="nav-item">
-              Examples
-            </a>
-            <a class="nav-item">
-              Documentation
-            </a>
+            <a class="nav-item is-brand">Note</a>
           </div>
         </div>
       </header>
@@ -32,11 +16,13 @@
           Note
         </h1>
         <h2 class="subtitle">
-          Made with Vue and Bulma
+          A note app build with Vue, Bulma and Firebase
         </h2>
-        <button class="button is-danger is-inverted is-outlined" @click="logOut">Log out</button>
-        <div>
-          <router-link to="/auth">Sign In</router-link>
+        <p>Realtime editing, save on the fly</p>
+        <div class="sign-in">
+          <span class="tag is-info is-medium">
+            <router-link to="/auth">Sign In</router-link>
+          </span>
         </div>
       </div>
     </div>
@@ -62,6 +48,15 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 
+.is-brand {
+  font-family: 'Indie Flower', cursive;
+  font-size: 2rem;
+}
+
+.sign-in {
+  margin-top: 2rem;
+}
 </style>
 

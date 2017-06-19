@@ -10,10 +10,9 @@
           <button class="button is-warning block" @click="emailSignin">Email Sign In</button>
         </div>
       </div>
-
-      <div class="has-text-centered">
-        <router-link to="/auth/signup">Want to use an Email account? Sign Up</router-link>
-      </div>
+    </div>
+    <div class="has-text-centered">
+      <router-link to="/auth/signup">Want to use an Email account? Sign Up</router-link>
     </div>
   </section>
 </template>

@@ -15,11 +15,12 @@ new Vue({
   router,
   render: h => h(App),
   created () {
+    console.log('instance created')
     auth.onAuthStateChanged(user => {
       if (user) {
         this.$router.push('/note')
       } else {
-        this.$router.push('/auth')
+        this.$router.push('/')
       }
     })
   }

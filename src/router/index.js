@@ -26,14 +26,20 @@ export default new Router({
       component: Note,
       beforeEnter: (to, from, next) => {
         if (auth.currentUser === null) {
-          next(false)
+          next('/')
         }
         next()
       }
     },
     {
       path: '/profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: (to, from, next) => {
+        if (auth.currentUser === null) {
+          next('/')
+        }
+        next()
+      }
     },
     {
       path: '/auth',
