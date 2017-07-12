@@ -4,8 +4,8 @@
 
 ## Overview
 
-+Firebase Authentication and real-time database
-+Vue
++ Firebase Authentication and real-time database
++ Vue
 
 
 
